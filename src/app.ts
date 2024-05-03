@@ -1,4 +1,9 @@
+//app.ts
+import dotenv from 'dotenv';
+dotenv.config();
+
 import getUserInput from './getUserInput.js';
+import createRepository from './createRepository.js';
 
 const createNewPackage = async (): Promise<string> => {
   const questions = [
@@ -8,7 +13,8 @@ const createNewPackage = async (): Promise<string> => {
 
   const packageData = await getUserInput(questions);
 
-  console.log(packageData);
+  await createRepository(packageData);
+
   return 'Bla';
 };
 

@@ -1,3 +1,4 @@
+//getUserInput.ts
 import inquirer from 'inquirer';
 
 import { GetUserInput, Answers } from './types';
