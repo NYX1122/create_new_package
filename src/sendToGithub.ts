@@ -16,15 +16,17 @@ const sendToGithub: SendToGithub = async ({ method, body }) => {
     body: parsedBody
   });
 
-  const data = await response.json();
+  const data: unknown = await response.json();
 
   if (!response.ok) {
     // If the response has failed, assume it is an error response
-    return { message: 'Error', errors: data.errors, documentation_url: data.documentation_url } as SendToGithubErrorResponse;
+    const errorData = data as { errors: Array<{ resource: string; code: string; field: string; message: string }>; documentation_url: string };
+    return { message: 'Error', errors: errorData.errors, documentation_url: errorData.documentation_url };
   }
 
   // Otherwise, assume success
-  return { data } as SendToGithubSuccessResponse;
+  const successData = data as Repository;
+  return { data: successData };
 };
 
 
