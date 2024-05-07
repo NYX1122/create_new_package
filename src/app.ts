@@ -2,20 +2,18 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import getUserInput from './getUserInput.js';
-import createRepository from './createRepository.js';
+import { CreateNewPackage } from './types';
 
-const createNewPackage = async (): Promise<string> => {
-  const questions = [
-    { name: 'packageName', message: 'What is the name of the package?' },
-    { name: 'packageDescription', message: 'What is the description of the package?' }
-  ];
+import validateInput from './validateInput.js';
 
-  const packageData = await getUserInput(questions);
+const createNewPackage: CreateNewPackage = async ({ packageName, packageDescription } = { packageName: '', packageDescription: '' }) => {
+  const { validatedPackageName, validatedPackageDescription } = await validateInput({ packageName, packageDescription });
 
-  await createRepository(packageData);
+  console.log(validatedPackageName, validatedPackageDescription);
 
-  return 'Bla';
+  return {
+    result: 'success'
+  };
 };
 
 createNewPackage().then(() => {

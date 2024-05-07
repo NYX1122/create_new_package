@@ -1,57 +1,41 @@
 // types.ts
 
-// User input related types
-export type Question = {
-  name: string;
-  message: string;
+type CreateNewPackageInput = {
+  packageName: string;
+  packageDescription: string;
 };
 
-export type QuestionArr = Array<Question>;
+type CreateNewPackageOutput = Promise<{
+  result: string;
+}>;
 
-export type Answers = {
-  [key: string]: string;
+export type CreateNewPackage = (inputData?: CreateNewPackageInput) => CreateNewPackageOutput;
+
+type ValidateInputInput = {
+  packageName: string;
+  packageDescription: string;
 };
 
-export type GetUserInput = (inputData: QuestionArr) => Promise<Answers>;
+type ValidateInputOutput = Promise<{
+  validatedPackageName: string;
+  validatedPackageDescription: string;
+}>;
 
-// Repository related types
-export interface Repository {
-  id: number;
-  name: string;
-  full_name: string;
-  private: boolean;
-  // Add other necessary properties from the GitHub response
-}
+export type ValidateInput = (inputData: ValidateInputInput) => ValidateInputOutput;
 
-export type CreateRepository = (inputData: Answers) => Promise<void>;
+type GetUserInputInput = string;
 
-export type CreateRepositoryBody = {
-  name: string;
-  description: string;
-  private: boolean;
+type GetUserInputOutput = Promise<string>;
+
+export type GetUserInput = (inputData: GetUserInputInput) => GetUserInputOutput;
+
+type CreateRepositoryInput = {
+  packageName: string;
+  packageDescription: string;
 };
 
-export type CommunicationData = {
-  method: string;
-  body: CreateRepositoryBody;
-};
+type CreateRepositoryOutput = Promise<{
+  result: string;
+}>;
 
-// GitHub API response types
-export interface GitHubErrorResponse {
-  message: string;
-  errors: Array<{
-    resource: string;
-    code: string;
-    field: string;
-    message: string;
-  }>;
-  documentation_url: string;
-}
-
-export interface GitHubSuccessResponse {
-  data: Repository;
-}
-
-export type GitHubResponse = GitHubSuccessResponse | GitHubErrorResponse;
-
-export type SendToGithub = (inputData: CommunicationData) => Promise<GitHubResponse>;
+export type CreateRepository = (inputData: CreateRepositoryInput) => CreateRepositoryOutput;

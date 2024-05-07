@@ -1,20 +1,18 @@
 //getUserInput.ts
 import inquirer from 'inquirer';
 
-import { GetUserInput, Answers } from './types';
+import { GetUserInput } from './types';
 
-const getUserInput: GetUserInput = async (inputData) => {
-  const inquirerInputData = inputData.map(question => {
-    return {
-      name: question.name,
-      message: question.message,
-      type: 'input'
-    };
+const getUserInput: GetUserInput = async (question) => {
+  const answer = await inquirer.prompt({
+    type: 'input',
+    name: 'input',
+    message: question
   });
 
-  const answers: Answers = await inquirer.prompt<Answers>(inquirerInputData);
+  const userInput = answer.input as string;
 
-  return answers;
+  return userInput;
 };
 
 export default getUserInput;
