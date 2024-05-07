@@ -7,19 +7,19 @@ import { CreateNewPackage } from './types';
 import validateInput from './validateInput.js';
 
 const createNewPackage: CreateNewPackage = async ({ packageName, packageDescription } = { packageName: '', packageDescription: '' }) => {
-  const { validatedPackageName, validatedPackageDescription } = await validateInput({ packageName, packageDescription });
+	const { validatedPackageName, validatedPackageDescription } = await validateInput({ packageName, packageDescription });
 
-  console.log(validatedPackageName, validatedPackageDescription);
+	console.log(validatedPackageName, validatedPackageDescription);
 
-  return {
-    result: 'success'
-  };
+	return {
+		result: 'success'
+	};
 };
 
 createNewPackage().then(() => {
-  console.log('Package created!');
+	console.log('Package created!');
 }).catch((error) => {
-  console.error(error);
+	console.error(error);
 });
 
 export default createNewPackage;
